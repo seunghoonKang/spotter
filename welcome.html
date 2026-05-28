@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Welcome to Spotter</title>
+<style>
+  :root {
+    --bg: #0d120e;
+    --surface: #14191a;
+    --fg: #e6f0e0;
+    --muted: #8a9080;
+    --accent: #a3e635;
+    --accent-soft: #bef264;
+    --border: #1f2818;
+    --rec: #ff3b30;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); }
+  body {
+    font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    padding: 48px 24px;
+    line-height: 1.5;
+  }
+  .lang-toggle {
+    position: fixed;
+    top: 18px; right: 18px;
+    display: inline-flex;
+    gap: 2px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 3px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+  }
+  .lang-toggle button {
+    background: transparent;
+    border: none;
+    color: var(--muted);
+    padding: 5px 12px;
+    border-radius: 999px;
+    cursor: pointer;
+    font: inherit;
+    text-transform: uppercase;
+  }
+  .lang-toggle button.active {
+    background: var(--accent);
+    color: var(--bg);
+  }
+  .wrap { max-width: 560px; width: 100%; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 18px;
+  }
+  .badge svg { width: 22px; height: 22px; }
+  h1 {
+    font-size: 36px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin: 0 0 12px;
+  }
+  .tagline {
+    color: var(--muted);
+    font-size: 16px;
+    margin: 0 0 40px;
+  }
+  .steps {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 40px;
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .step {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 14px;
+    align-items: start;
+  }
+  .step-num {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 12px;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 50%;
+    width: 24px; height: 24px;
+    display: inline-flex; align-items: center; justify-content: center;
+    margin-top: 1px;
+  }
+  .step-title {
+    font-size: 15px;
+    font-weight: 500;
+    margin: 0 0 4px;
+  }
+  .step-body {
+    color: var(--muted);
+    font-size: 14px;
+    margin: 0;
+  }
+  kbd {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 12px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2px 6px;
+    color: var(--fg);
+    white-space: nowrap;
+  }
+  .accent { color: var(--accent-soft); }
+  .rec-dot {
+    width: 9px; height: 9px; border-radius: 50%;
+    background: var(--rec);
+    display: inline-block;
+    vertical-align: -1px;
+    margin-right: 4px;
+  }
+  .cta {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--accent);
+    color: var(--bg);
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 12px 18px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+  }
+  .cta:hover { background: var(--accent-soft); }
+  .footnote {
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: 24px;
+    line-height: 1.6;
+  }
+  .footnote a { color: var(--accent-soft); }
+  code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 11px;
+    background: var(--surface);
+    padding: 1px 4px;
+    border-radius: 3px;
+  }
+</style>
+</head>
+<body>
+  <div class="lang-toggle" id="lang-toggle">
+    <button data-lang="en">EN</button>
+    <button data-lang="ko">한국어</button>
+  </div>
+  <div class="wrap">
+    <div class="badge">
+      <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <circle cx="16" cy="16" r="11" stroke="#a3e635" stroke-width="1.5"/>
+        <line x1="16" y1="2" x2="16" y2="7" stroke="#a3e635" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="16" y1="25" x2="16" y2="30" stroke="#a3e635" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="2" y1="16" x2="7" y2="16" stroke="#a3e635" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="25" y1="16" x2="30" y2="16" stroke="#a3e635" stroke-width="1.5" stroke-linecap="round"/>
+        <circle cx="16" cy="16" r="2" fill="#ff3b30"/>
+      </svg>
+      <span data-i="badge"></span>
+    </div>
+    <h1 data-i="headline"></h1>
+    <p class="tagline" data-i="tagline"></p>
+
+    <ol class="steps">
+      <li class="step">
+        <span class="step-num">1</span>
+        <div>
+          <p class="step-title" data-i="step1Title"></p>
+          <p class="step-body" data-i="step1Body"></p>
+        </div>
+      </li>
+      <li class="step">
+        <span class="step-num">2</span>
+        <div>
+          <p class="step-title" data-i="step2Title"></p>
+          <p class="step-body" data-i="step2Body"></p>
+        </div>
+      </li>
+      <li class="step">
+        <span class="step-num">3</span>
+        <div>
+          <p class="step-title" data-i="step3Title"></p>
+          <p class="step-body" data-i="step3Body"></p>
+        </div>
+      </li>
+    </ol>
+
+    <button class="cta" id="start-btn">
+      <svg viewBox="0 0 16 16" width="14" height="14" fill="none" aria-hidden="true">
+        <circle cx="8" cy="8" r="5.5" stroke="currentColor" stroke-width="1.4"/>
+        <line x1="8" y1="1.5" x2="8" y2="3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+        <line x1="8" y1="13" x2="8" y2="14.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+        <line x1="1.5" y1="8" x2="3" y2="8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+        <line x1="13" y1="8" x2="14.5" y2="8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+        <circle cx="8" cy="8" r="2" fill="#ff3b30"/>
+      </svg>
+      <span data-i="cta"></span>
+    </button>
+
+    <p class="footnote" data-i="footnote"></p>
+  </div>
+
+  <script src="welcome.js"></script>
+</body>
+</html>

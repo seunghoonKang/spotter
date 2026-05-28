@@ -1,0 +1,151 @@
+{
+  "extName": {
+    "message": "Spotter",
+    "description": "Extension name shown in Chrome and the Web Store"
+  },
+  "extDescription": {
+    "message": "Spot bugs while you browse. Record a tab, flag what's broken, hand off a single-file report.",
+    "description": "Short tagline shown in the Web Store listing"
+  },
+  "actionTitle": {
+    "message": "Spotter",
+    "description": "Tooltip on the toolbar icon"
+  },
+
+  "popupStatusIdle": { "message": "Idle" },
+  "popupStatusRecording": { "message": "● Recording" },
+  "popupStatusStarting": { "message": "Starting…" },
+  "popupStatusStopping": { "message": "Stopping…" },
+  "popupStatusNoTab": { "message": "No active tab" },
+  "popupStatusFailed": { "message": "Failed to start" },
+  "popupBtnStart": { "message": "Start recording" },
+  "popupBtnStop": { "message": "Stop recording" },
+  "popupHint": {
+    "message": "Recording is capped at 1 minute. Press $SHORTCUT$ to spot something while recording.",
+    "placeholders": {
+      "shortcut": { "content": "$1", "example": "⌘/Ctrl + Shift + S" }
+    }
+  },
+
+  "toolbarSpot": { "message": "⊕ Spot" },
+  "toolbarSpotTitle": {
+    "message": "Spot ($SHORTCUT$)",
+    "placeholders": {
+      "shortcut": { "content": "$1", "example": "⌘/Ctrl + Shift + S" }
+    }
+  },
+  "toolbarStop": { "message": "■ Stop" },
+  "hintPillText": {
+    "message": "Press $KBD$ to spot something",
+    "description": "First-run hint above the toolbar; $KBD$ is replaced with kbd-wrapped shortcut",
+    "placeholders": {
+      "kbd": { "content": "$1" }
+    }
+  },
+  "editorPlaceholder": { "message": "What's wrong here?" },
+  "editorConfirmTitle": { "message": "Save (⌘/Ctrl + Enter)" },
+  "editorCancelTitle": { "message": "Cancel (Esc)" },
+
+  "finishTitle": { "message": "Save recording" },
+  "finishOptionReport": { "message": "HTML report (recommended)" },
+  "finishOptionBoth": { "message": "Video (.webm) + events (.json)" },
+  "finishOptionVideo": { "message": "Video only (.webm)" },
+  "finishOptionHistory": { "message": "Events only (.json)" },
+  "finishBtnCancel": { "message": "Cancel" },
+  "finishBtnSave": { "message": "Save" },
+  "finishStatusSaving": { "message": "Saving…" },
+  "finishStatusSaved": { "message": "Saved ✓" },
+  "finishStatusNothingToSave": { "message": "Nothing to save" },
+  "finishStatusFailed": { "message": "Failed" },
+  "finishMetaEvents": {
+    "message": "$N$ event$PLURAL$",
+    "placeholders": {
+      "n": { "content": "$1" },
+      "plural": { "content": "$2" }
+    }
+  },
+  "finishMetaShots": {
+    "message": "$N$ screenshot$PLURAL$",
+    "placeholders": {
+      "n": { "content": "$1" },
+      "plural": { "content": "$2" }
+    }
+  },
+  "finishMetaVideoReady": { "message": "video ready" },
+  "finishMetaNoVideo": { "message": "no video" },
+
+  "reportTitle": { "message": "Spotter Report" },
+  "reportTitleWithDate": {
+    "message": "Spotter Report — $DATE$",
+    "placeholders": { "date": { "content": "$1" } }
+  },
+  "reportMetaErrors": {
+    "message": "$N$ error$PLURAL$",
+    "placeholders": {
+      "n": { "content": "$1" },
+      "plural": { "content": "$2" }
+    }
+  },
+  "reportEnvironment": { "message": "Environment" },
+  "reportEnvUrl": { "message": "URL" },
+  "reportEnvViewport": { "message": "Viewport" },
+  "reportEnvPlatform": { "message": "Platform" },
+  "reportEnvPlatformMobile": { "message": "(mobile)" },
+  "reportEnvBrowser": { "message": "Browser" },
+  "reportEnvLanguage": { "message": "Language" },
+  "reportEnvTimezone": { "message": "Timezone" },
+  "reportEnvUA": { "message": "User-Agent" },
+  "reportTimeline": { "message": "Timeline" },
+  "reportNoVideo": { "message": "No video available" },
+  "reportNoShot": { "message": "no shot" },
+  "reportEventNavigation": { "message": "Navigation" },
+  "reportEventSpaNavigation": { "message": "SPA navigation" },
+  "reportEventClick": {
+    "message": "Click $TAG$$ROLE$",
+    "placeholders": {
+      "tag": { "content": "$1" },
+      "role": { "content": "$2" }
+    }
+  },
+  "reportEventSpot": { "message": "Spot" },
+  "reportEventConsoleError": { "message": "Console error" },
+  "reportEventNetworkFailed": { "message": "failed" },
+
+  "welcomeBadge": { "message": "Spotter is installed" },
+  "welcomeHeadline": { "message": "Spot bugs while you browse." },
+  "welcomeTagline": { "message": "Record a tab. Flag what's broken. Hand off a single-file report." },
+  "welcomeStep1Title": {
+    "message": "Click the Spotter icon → $ACTION$",
+    "placeholders": {
+      "action": { "content": "$1" }
+    }
+  },
+  "welcomeStep1TitleAction": { "message": "Start recording" },
+  "welcomeStep1Body": {
+    "message": "Recording is capped at 1 minute. Pin the icon in the toolbar (puzzle menu → 📌) so it's always one click away."
+  },
+  "welcomeStep2Title": {
+    "message": "Press $KBD$ to spot something",
+    "placeholders": { "kbd": { "content": "$1" } }
+  },
+  "welcomeStep2Body": {
+    "message": "Your cursor becomes a reticle. Drag a box around the problem, type a note, then $KBD$ to confirm. Spot mode turns off automatically — press the shortcut again for the next one.",
+    "placeholders": { "kbd": { "content": "$1" } }
+  },
+  "welcomeStep3Title": {
+    "message": "Stop. Get a single-file $REPORT$.",
+    "placeholders": { "report": { "content": "$1" } }
+  },
+  "welcomeStep3TitleReport": { "message": "HTML report" },
+  "welcomeStep3Body": {
+    "message": "Video, every spot with a screenshot, every meaningful click, plus console errors and failed requests — all in one .html attachment. Open with one double-click."
+  },
+  "welcomeCta": { "message": "Try it now" },
+  "welcomeFootnote": {
+    "message": "Tip: if you opened a tab before installing Spotter, refresh it once. Spotter doesn't work on $CHROME_URL$ pages or the Chrome Web Store.",
+    "placeholders": { "chrome_url": { "content": "$1" } }
+  },
+  "welcomeStartCantRun": {
+    "message": "Spotter can't run on this page. Try a regular http(s) page."
+  }
+}

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Save recording</title>
+    <style>
+      :root {
+        --bg: #0d120e;
+        --fg: #e6f0e0;
+        --muted: #8a9080;
+        --accent: #a3e635;
+        --accent-soft: #bef264;
+        --border: #1f2818;
+        --hover: #161d17;
+        --rec: #ff3b30;
+      }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; padding: 0; height: 100%; }
+      body {
+        background: var(--bg);
+        color: var(--fg);
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        padding: 20px;
+        display: flex; flex-direction: column;
+        height: 100%;
+      }
+      h1 {
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin: 0 0 4px 0;
+      }
+      .meta {
+        font-size: 11px; color: var(--muted);
+        margin: 0 0 16px 0;
+      }
+      .options {
+        display: flex; flex-direction: column; gap: 6px;
+        margin-bottom: 16px;
+      }
+      .option {
+        display: flex; align-items: center; gap: 10px;
+        padding: 10px 12px;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 13px;
+        transition: background 0.12s, border-color 0.12s;
+      }
+      .option:hover { background: var(--hover); }
+      .option.selected {
+        border-color: var(--accent);
+        background: rgba(163, 230, 53, 0.08);
+      }
+      .radio {
+        width: 14px; height: 14px;
+        border: 1.5px solid var(--muted);
+        border-radius: 50%;
+        flex-shrink: 0;
+        position: relative;
+      }
+      .option.selected .radio {
+        border-color: var(--accent);
+      }
+      .option.selected .radio::after {
+        content: '';
+        position: absolute;
+        inset: 2px;
+        background: var(--accent);
+        border-radius: 50%;
+      }
+      .label-text { flex: 1; }
+      .footer {
+        margin-top: auto;
+        display: flex; gap: 8px;
+      }
+      .btn {
+        flex: 1;
+        padding: 10px 14px;
+        border-radius: 6px;
+        border: 1px solid var(--border);
+        background: transparent;
+        color: var(--fg);
+        font-family: inherit;
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background 0.12s;
+        display: inline-flex; align-items: center; justify-content: center;
+        gap: 8px;
+      }
+      .btn:hover:not(:disabled) { background: var(--hover); }
+      .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+      .btn.primary {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #0d120e;
+      }
+      .btn.primary:hover:not(:disabled) {
+        background: var(--accent-soft);
+        border-color: var(--accent-soft);
+      }
+      .spinner {
+        width: 12px; height: 12px;
+        border: 2px solid rgba(13, 18, 14, 0.25);
+        border-top-color: #0d120e;
+        border-radius: 50%;
+        animation: spin 0.7s linear infinite;
+      }
+      @keyframes spin { to { transform: rotate(360deg); } }
+      .status {
+        font-size: 11px;
+        color: var(--muted);
+        margin-top: 8px;
+        min-height: 14px;
+        text-align: center;
+      }
+      .status.error { color: var(--rec); }
+      .status.success { color: var(--accent-soft); }
+    </style>
+  </head>
+  <body>
+    <h1 data-i18n="finishTitle"></h1>
+    <p class="meta" id="meta"></p>
+
+    <div class="options" id="options">
+      <div class="option selected" data-value="report">
+        <span class="radio"></span>
+        <span class="label-text" data-i18n="finishOptionReport"></span>
+      </div>
+      <div class="option" data-value="both">
+        <span class="radio"></span>
+        <span class="label-text" data-i18n="finishOptionBoth"></span>
+      </div>
+      <div class="option" data-value="video">
+        <span class="radio"></span>
+        <span class="label-text" data-i18n="finishOptionVideo"></span>
+      </div>
+      <div class="option" data-value="history">
+        <span class="radio"></span>
+        <span class="label-text" data-i18n="finishOptionHistory"></span>
+      </div>
+    </div>
+
+    <div class="status" id="status"></div>
+
+    <div class="footer">
+      <button class="btn" id="cancel" data-i18n="finishBtnCancel"></button>
+      <button class="btn primary" id="save" data-i18n="finishBtnSave"></button>
+    </div>
+
+    <script src="i18n.js"></script>
+
+    <script src="finish-dialog.js"></script>
+  </body>
+</html>

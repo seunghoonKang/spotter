@@ -1,0 +1,147 @@
+{
+  "extName": {
+    "message": "Spotter"
+  },
+  "extDescription": {
+    "message": "브라우징 중에 버그를 짚어내세요. 탭을 녹화하고, 문제 지점에 표시하고, 단일 파일 리포트로 전달합니다."
+  },
+  "actionTitle": {
+    "message": "Spotter"
+  },
+
+  "popupStatusIdle": { "message": "대기 중" },
+  "popupStatusRecording": { "message": "● 녹화 중" },
+  "popupStatusStarting": { "message": "시작 중…" },
+  "popupStatusStopping": { "message": "정지 중…" },
+  "popupStatusNoTab": { "message": "활성 탭 없음" },
+  "popupStatusFailed": { "message": "시작 실패" },
+  "popupBtnStart": { "message": "녹화 시작" },
+  "popupBtnStop": { "message": "녹화 정지" },
+  "popupHint": {
+    "message": "녹화는 최대 1분까지. 녹화 중 $SHORTCUT$ 키로 영역을 표시하세요.",
+    "placeholders": {
+      "shortcut": { "content": "$1", "example": "⌘/Ctrl + Shift + S" }
+    }
+  },
+
+  "toolbarSpot": { "message": "⊕ Spot" },
+  "toolbarSpotTitle": {
+    "message": "Spot ($SHORTCUT$)",
+    "placeholders": {
+      "shortcut": { "content": "$1" }
+    }
+  },
+  "toolbarStop": { "message": "■ 정지" },
+  "hintPillText": {
+    "message": "$KBD$ 를 눌러 영역을 표시하세요",
+    "placeholders": {
+      "kbd": { "content": "$1" }
+    }
+  },
+  "editorPlaceholder": { "message": "어떤 점이 문제인가요?" },
+  "editorConfirmTitle": { "message": "저장 (⌘/Ctrl + Enter)" },
+  "editorCancelTitle": { "message": "취소 (Esc)" },
+
+  "finishTitle": { "message": "녹화 저장" },
+  "finishOptionReport": { "message": "HTML 리포트 (권장)" },
+  "finishOptionBoth": { "message": "영상 (.webm) + 이벤트 (.json)" },
+  "finishOptionVideo": { "message": "영상만 (.webm)" },
+  "finishOptionHistory": { "message": "이벤트만 (.json)" },
+  "finishBtnCancel": { "message": "취소" },
+  "finishBtnSave": { "message": "저장" },
+  "finishStatusSaving": { "message": "저장 중…" },
+  "finishStatusSaved": { "message": "저장됨 ✓" },
+  "finishStatusNothingToSave": { "message": "저장할 항목 없음" },
+  "finishStatusFailed": { "message": "실패" },
+  "finishMetaEvents": {
+    "message": "이벤트 $N$개",
+    "placeholders": {
+      "n": { "content": "$1" },
+      "plural": { "content": "$2" }
+    }
+  },
+  "finishMetaShots": {
+    "message": "스크린샷 $N$개",
+    "placeholders": {
+      "n": { "content": "$1" },
+      "plural": { "content": "$2" }
+    }
+  },
+  "finishMetaVideoReady": { "message": "영상 준비됨" },
+  "finishMetaNoVideo": { "message": "영상 없음" },
+
+  "reportTitle": { "message": "Spotter 리포트" },
+  "reportTitleWithDate": {
+    "message": "Spotter 리포트 — $DATE$",
+    "placeholders": { "date": { "content": "$1" } }
+  },
+  "reportMetaErrors": {
+    "message": "에러 $N$개",
+    "placeholders": {
+      "n": { "content": "$1" },
+      "plural": { "content": "$2" }
+    }
+  },
+  "reportEnvironment": { "message": "환경 정보" },
+  "reportEnvUrl": { "message": "URL" },
+  "reportEnvViewport": { "message": "뷰포트" },
+  "reportEnvPlatform": { "message": "플랫폼" },
+  "reportEnvPlatformMobile": { "message": "(모바일)" },
+  "reportEnvBrowser": { "message": "브라우저" },
+  "reportEnvLanguage": { "message": "언어" },
+  "reportEnvTimezone": { "message": "타임존" },
+  "reportEnvUA": { "message": "User-Agent" },
+  "reportTimeline": { "message": "타임라인" },
+  "reportNoVideo": { "message": "영상 없음" },
+  "reportNoShot": { "message": "스크린샷 없음" },
+  "reportEventNavigation": { "message": "페이지 이동" },
+  "reportEventSpaNavigation": { "message": "SPA 이동" },
+  "reportEventClick": {
+    "message": "$TAG$$ROLE$ 클릭",
+    "placeholders": {
+      "tag": { "content": "$1" },
+      "role": { "content": "$2" }
+    }
+  },
+  "reportEventSpot": { "message": "Spot" },
+  "reportEventConsoleError": { "message": "콘솔 에러" },
+  "reportEventNetworkFailed": { "message": "실패" },
+
+  "welcomeBadge": { "message": "Spotter가 설치되었습니다" },
+  "welcomeHeadline": { "message": "브라우징 중에 버그를 짚어내세요." },
+  "welcomeTagline": { "message": "탭을 녹화하고, 문제 지점을 표시하고, 단일 파일 리포트로 전달하세요." },
+  "welcomeStep1Title": {
+    "message": "Spotter 아이콘 클릭 → $ACTION$",
+    "placeholders": {
+      "action": { "content": "$1" }
+    }
+  },
+  "welcomeStep1TitleAction": { "message": "녹화 시작" },
+  "welcomeStep1Body": {
+    "message": "녹화는 최대 1분까지. 툴바에 아이콘을 고정해두면(퍼즐 메뉴 → 📌) 클릭 한 번에 시작할 수 있습니다."
+  },
+  "welcomeStep2Title": {
+    "message": "$KBD$ 를 눌러 영역을 표시하세요",
+    "placeholders": { "kbd": { "content": "$1" } }
+  },
+  "welcomeStep2Body": {
+    "message": "커서가 조준선으로 바뀝니다. 문제 영역을 드래그로 박스 치고, 메모를 입력한 뒤 $KBD$ 로 확정하세요. 표시 모드는 자동으로 꺼지니, 다음 영역은 단축키를 다시 누르면 됩니다.",
+    "placeholders": { "kbd": { "content": "$1" } }
+  },
+  "welcomeStep3Title": {
+    "message": "정지하면 단일 파일 $REPORT$ 가 만들어집니다.",
+    "placeholders": { "report": { "content": "$1" } }
+  },
+  "welcomeStep3TitleReport": { "message": "HTML 리포트" },
+  "welcomeStep3Body": {
+    "message": "영상, 각 표시 영역의 스크린샷, 의미 있는 클릭, 콘솔 에러와 실패한 네트워크 요청까지 — 모두 하나의 .html 파일에 담깁니다. 더블클릭 한 번으로 열립니다."
+  },
+  "welcomeCta": { "message": "지금 사용해보기" },
+  "welcomeFootnote": {
+    "message": "팁: Spotter 설치 전에 열어둔 탭이 있다면 새로고침을 한 번 해주세요. $CHROME_URL$ 페이지나 Chrome 웹스토어에서는 동작하지 않습니다.",
+    "placeholders": { "chrome_url": { "content": "$1" } }
+  },
+  "welcomeStartCantRun": {
+    "message": "이 페이지에서는 Spotter를 실행할 수 없습니다. 일반 http(s) 페이지에서 시도해주세요."
+  }
+}

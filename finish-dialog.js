@@ -577,14 +577,17 @@ async function doSave() {
       setBusy(true, 'Embedding video…');
       let videoDataUrl = null;
       if (videoUrl) {
-        videoDataUrl = await blobUrlToDataUrl(videoUrl);
+        // offscreen now hands us a data: URL directly; only convert if we somehow
+        // still got a blob: URL (older path / fallback).
+        videoDataUrl = videoUrl.startsWith('data:') ? videoUrl : await blobUrlToDataUrl(videoUrl);
       }
+
       // 2. Build HTML
       setBusy(true, 'Building report…');
       const html = buildReportHtml(videoDataUrl);
-      // 3. Hand off to background via blob URL.
-      // (data: URL would work but with multi-MB HTML it can choke; blob: + fetch from bg is fine here
-      //  because we trigger the download from the page context via a regular <a>.)
+      // 3. Download from THIS page context via an <a> + object URL. (We can't route
+      //    through the worker — it can't fetch our object URLs — and a multi-MB data:
+      //    URL is heavier than a blob: URL for the same-context <a> download.)
       const blob = new Blob([html], { type: 'text/html' });
       const url = URL.createObjectURL(blob);
       setBusy(true, t('finishStatusSaving'));
@@ -602,12 +605,27 @@ async function doSave() {
       return;
     }
 
-    // Other options use the background downloader (which handles blob: for video and data: for json).
-    const items = [];
-    if (selected === 'both' || selected === 'video') {
-      if (videoUrl) {
-        items.push({ url: videoUrl, filename: `spotter-recording-${s}.webm` });
-      }
+    // Video and/or events JSON. Download from THIS (page) context via <a>: the
+    // worker can't fetch our object URLs, and a multi-MB video data: URL can choke
+    // chrome.downloads. We build object URLs locally and click them.
+    setBusy(true, t('finishStatusSaving'));
+    const revokes = [];
+    const downloadAnchor = (href, filename) => {
+      const a = document.createElement('a');
+      a.href = href;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    };
+    let did = false;
+    if ((selected === 'both' || selected === 'video') && videoUrl) {
+      // data: URL → binary blob → local object URL (keeps the .webm un-inflated).
+      const blob = await (await fetch(videoUrl)).blob();
+      const u = URL.createObjectURL(blob);
+      revokes.push(u);
+      downloadAnchor(u, `spotter-recording-${s}.webm`);
+      did = true;
     }
     if (selected === 'both' || selected === 'history') {
       // Strip base64 screenshots — they bloat the JSON by megabytes and JSON's
@@ -621,25 +639,21 @@ async function doSave() {
         return ev;
       });
       const payload = JSON.stringify(
-        {
-          generatedAt: new Date().toISOString(),
-          environment,
-          events: leanEvents
-        },
+        { generatedAt: new Date().toISOString(), environment, events: leanEvents },
         null,
         2
       );
-      const dataUrl = 'data:application/json;charset=utf-8,' + encodeURIComponent(payload);
-      items.push({ url: dataUrl, filename: `spotter-history-${s}.json` });
+      const u = URL.createObjectURL(new Blob([payload], { type: 'application/json' }));
+      revokes.push(u);
+      downloadAnchor(u, `spotter-history-${s}.json`);
+      did = true;
     }
-    if (!items.length) {
+    if (!did) {
       setBusy(false);
       setStatus(t('finishStatusNothingToSave'), 'error');
       return;
     }
-    setBusy(true, t('finishStatusSaving'));
-    const res = await chrome.runtime.sendMessage({ type: 'DOWNLOAD', items });
-    if (!res?.ok) throw new Error(res?.error || 'Download failed');
+    setTimeout(() => revokes.forEach((u) => URL.revokeObjectURL(u)), 30_000);
     setStatus(t('finishStatusSaved'), 'success');
     setTimeout(close, 600);
   } catch (err) {

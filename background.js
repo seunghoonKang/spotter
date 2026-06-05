@@ -4,7 +4,7 @@
 // - Aggregates interaction history from content scripts and webNavigation.
 
 const OFFSCREEN_URL = 'offscreen.html';
-const MAX_DURATION_MS = 60_000; // Must match the value in content.js
+const MAX_DURATION_MS = 120_000; // Cap value (single source). Sent to content via RECORDING_STARTED; content's page timer is the primary enforcer, this SW runs a backup.
 
 let recordingTabId = null;
 let history = [];
@@ -38,9 +38,13 @@ function relTs() {
 
 function scheduleMaxDurationTimer(remainingMs) {
   if (maxDurationTimer) clearTimeout(maxDurationTimer);
+  // BACKUP enforcer only. The content script's page-context timer is the primary
+  // stop (this SW setTimeout is unreliable — MV3 suspends the worker after ~30s
+  // idle, discarding it). +1s so the content script's STOP_RECORDING wins when
+  // the worker is alive; this just catches the case where content can't fire.
   maxDurationTimer = setTimeout(() => {
     if (recordingTabId != null) stopRecording().catch(console.error);
-  }, remainingMs + 1000); // +1s grace so content script's stop arrives first when possible
+  }, remainingMs + 1000);
 }
 
 async function startRecording(streamId, tabId) {
@@ -91,15 +95,15 @@ async function startRecording(streamId, tabId) {
   // (chrome://, the Web Store) reject injection — bail cleanly in that case.
   let injected = false;
   try {
-    await chrome.tabs.sendMessage(tabId, { type: 'RECORDING_STARTED' });
+    await chrome.tabs.sendMessage(tabId, { type: 'RECORDING_STARTED', maxDurationMs: MAX_DURATION_MS });
     injected = true;
   } catch (e) {
     try {
       await chrome.scripting.executeScript({
         target: { tabId },
-        files: ['content.js']
+        files: ['spot-engine.js', 'content.js']
       });
-      await chrome.tabs.sendMessage(tabId, { type: 'RECORDING_STARTED' });
+      await chrome.tabs.sendMessage(tabId, { type: 'RECORDING_STARTED', maxDurationMs: MAX_DURATION_MS });
       injected = true;
     } catch (e2) {
       console.warn('content script injection failed:', e2);
@@ -121,6 +125,10 @@ async function startRecording(streamId, tabId) {
 }
 
 async function stopRecording() {
+  // Guard against double-stop: the content-script cap and the background backup
+  // timer can both fire. The first run clears recordingTabId at the end; later
+  // calls bail here so we don't re-stop the offscreen doc or re-show the dialog.
+  if (recordingTabId == null) return;
   if (maxDurationTimer) {
     clearTimeout(maxDurationTimer);
     maxDurationTimer = null;
@@ -159,11 +167,17 @@ async function stopRecording() {
   environment = null;
   dedupeKeys = new Map();
 
-  // Defer closing offscreen a bit so the blob URL stays valid until the dialog grabs it.
-  setTimeout(() => closeOffscreen(), 60_000);
+  // Close the offscreen document now. The video was handed off as a self-contained
+  // data: URL (not a blob: URL tied to this document), so nothing still needs it.
+  // Closing immediately also avoids a back-to-back hazard: a deferred close could
+  // otherwise tear down a second recording started within the delay window.
+  closeOffscreen();
 }
 
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
+  // Offscreen keep-alive ping: receiving it is enough to reset the worker's idle
+  // timer so it survives the whole recording. No work to do.
+  if (msg.type === 'KEEPALIVE') return false;
   if (msg.type === 'START_RECORDING') {
     startRecording(msg.streamId, msg.tabId)
       .then(() => sendResponse({ ok: true }))
@@ -211,13 +225,6 @@ chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
     sendResponse({ history: history.slice(), environment });
     return false;
   }
-  if (msg.type === 'DOWNLOAD') {
-    // msg.items: [{ url, filename }]
-    downloadAll(msg.items)
-      .then(() => sendResponse({ ok: true }))
-      .catch((err) => sendResponse({ ok: false, error: err.message }));
-    return true;
-  }
 });
 
 // Add a console-error or network-error event with deduplication.
@@ -240,20 +247,6 @@ function addPageEvent(payload) {
   const event = { t: relTs(), count: 1, ...payload };
   history.push(event);
   dedupeKeys.set(key, history.length - 1);
-}
-
-async function downloadAll(items) {
-  for (const it of items) {
-    await new Promise((resolve, reject) => {
-      chrome.downloads.download(
-        { url: it.url, filename: it.filename, saveAs: false },
-        (id) => {
-          if (chrome.runtime.lastError) reject(chrome.runtime.lastError);
-          else resolve(id);
-        }
-      );
-    });
-  }
 }
 
 // --- Screenshot capture ---

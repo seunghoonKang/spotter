@@ -21,7 +21,7 @@
   "popupBtnStart": { "message": "Start recording" },
   "popupBtnStop": { "message": "Stop recording" },
   "popupHint": {
-    "message": "Recording is capped at 1 minute. Press $SHORTCUT$ to spot something while recording.",
+    "message": "Recording is capped at 2 minutes. Press $SHORTCUT$ to spot something while recording.",
     "placeholders": {
       "shortcut": { "content": "$1", "example": "⌘/Ctrl + Shift + S" }
     }
@@ -122,7 +122,7 @@
   },
   "welcomeStep1TitleAction": { "message": "Start recording" },
   "welcomeStep1Body": {
-    "message": "Recording is capped at 1 minute. Pin the icon in the toolbar (puzzle menu → 📌) so it's always one click away."
+    "message": "Recording is capped at 2 minutes. Pin the icon in the toolbar (puzzle menu → 📌) so it's always one click away."
   },
   "welcomeStep2Title": {
     "message": "Press $KBD$ to spot something",

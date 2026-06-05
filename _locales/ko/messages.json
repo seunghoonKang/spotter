@@ -18,7 +18,7 @@
   "popupBtnStart": { "message": "녹화 시작" },
   "popupBtnStop": { "message": "녹화 정지" },
   "popupHint": {
-    "message": "녹화는 최대 1분까지. 녹화 중 $SHORTCUT$ 키로 영역을 표시하세요.",
+    "message": "녹화는 최대 2분까지. 녹화 중 $SHORTCUT$ 키로 영역을 표시하세요.",
     "placeholders": {
       "shortcut": { "content": "$1", "example": "⌘/Ctrl + Shift + S" }
     }
@@ -118,7 +118,7 @@
   },
   "welcomeStep1TitleAction": { "message": "녹화 시작" },
   "welcomeStep1Body": {
-    "message": "녹화는 최대 1분까지. 툴바에 아이콘을 고정해두면(퍼즐 메뉴 → 📌) 클릭 한 번에 시작할 수 있습니다."
+    "message": "녹화는 최대 2분까지. 툴바에 아이콘을 고정해두면(퍼즐 메뉴 → 📌) 클릭 한 번에 시작할 수 있습니다."
   },
   "welcomeStep2Title": {
     "message": "$KBD$ 를 눌러 영역을 표시하세요",

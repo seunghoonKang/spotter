@@ -9,7 +9,7 @@ stopBtn.textContent = t('popupBtnStop');
 // Hint contains a styled shortcut; use innerHTML and wrap the inserted
 // shortcut in <b> so it visually pops the way the original prose did.
 const shortcutHtml = '<b>⌘/Ctrl + Shift + S</b>';
-hintEl.innerHTML = t('popupHint', [shortcutHtml]).replace(/\b1 minute\b/, '<b>1 minute</b>').replace(/1분/, '<b>1분</b>');
+hintEl.innerHTML = t('popupHint', [shortcutHtml]).replace(/\b2 minutes\b/, '<b>2 minutes</b>').replace(/2분/, '<b>2분</b>');
 
 async function refreshState() {
   const { recording } = await chrome.storage.local.get('recording');
